@@ -1,3 +1,5 @@
+using CleanAPI.Core.Interfaces;
+using CleanAPI.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +27,9 @@ namespace CleanAPI.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CleanAPI.API", Version = "v1" });
             });
+
+            //Resolve dependencies
+            services.AddTransient<IPostRepository, PostRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

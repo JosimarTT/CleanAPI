@@ -1,5 +1,7 @@
-﻿using CleanAPI.Infrastructure.Repositories;
+﻿using CleanAPI.Core.Interfaces;
+using CleanAPI.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace CleanAPI.API.Controllers
 {
@@ -7,10 +9,16 @@ namespace CleanAPI.API.Controllers
     [ApiController]
     public class PostController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult GetPosts()
+        private readonly IPostRepository _postRepository;
+        public PostController(IPostRepository postRepository)
         {
-            var posts = new PostRepository().GetPosts();
+            _postRepository = postRepository;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetPosts()
+        {
+            var posts = await _postRepository.GetPosts();
             return Ok(posts);
         }
     }

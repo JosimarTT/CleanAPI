@@ -1,4 +1,5 @@
 ﻿using CleanAPI.Core.Entities;
+using CleanAPI.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace CleanAPI.Infrastructure.Repositories
 {
-    public class PostRepository
+    public class PostRepository:IPostRepository
     {
-        public IEnumerable<Post> GetPosts()
+        public async Task<IEnumerable<Post>> GetPosts()
         {
             var post = Enumerable.Range(1, 10).Select(x => new Post
             {
@@ -19,6 +20,7 @@ namespace CleanAPI.Infrastructure.Repositories
                 Image = $"https://misapis.com/{x}",
                 UserId = x * 2
             });
+            await Task.Delay(5);
             return post;
         }
     }
