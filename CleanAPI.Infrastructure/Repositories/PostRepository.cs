@@ -20,5 +20,17 @@ namespace CleanAPI.Infrastructure.Repositories
             var posts = await _dbContext.Posts.ToListAsync();
             return posts;
         }
+
+        public async Task<Post> GetPost(int id)
+        {
+            var post = await _dbContext.Posts.FirstOrDefaultAsync(x => x.PostId == id);
+            return post;
+        }
+
+        public async Task InsertPost(Post post)
+        {
+            _dbContext.Posts.Add(post);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }
