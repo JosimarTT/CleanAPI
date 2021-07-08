@@ -1,7 +1,9 @@
 using CleanAPI.Core.Interfaces;
+using CleanAPI.Infrastructure.Data;
 using CleanAPI.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +28,12 @@ namespace CleanAPI.API
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CleanAPI.API", Version = "v1" });
+            });
+
+            //DB Context
+            services.AddDbContext<CleanAPIContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("CleanAPI"));
             });
 
             //Resolve dependencies

@@ -1,5 +1,4 @@
 ﻿using CleanAPI.Core.Interfaces;
-using CleanAPI.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
