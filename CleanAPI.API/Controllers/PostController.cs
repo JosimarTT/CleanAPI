@@ -1,6 +1,10 @@
-﻿using CleanAPI.Core.Entities;
+﻿using AutoMapper;
+using CleanAPI.Core.DTOs;
+using CleanAPI.Core.Entities;
 using CleanAPI.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CleanAPI.API.Controllers
@@ -10,28 +14,33 @@ namespace CleanAPI.API.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostRepository _postRepository;
-        public PostController(IPostRepository postRepository)
+        private readonly IMapper _mapper;
+        public PostController(IPostRepository postRepository, IMapper mapper)
         {
             _postRepository = postRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetPosts()
         {
             var posts = await _postRepository.GetPosts();
-            return Ok(posts);
+            var postsDto = _mapper.Map<IEnumerable<PostDto>>(posts);
+            return Ok(postsDto);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPost(int id)
         {
             var post = await _postRepository.GetPost(id);
-            return Ok(post);
+            var postDto = _mapper.Map<PostDto>(post);
+            return Ok(postDto);
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertPost(Post post)
+        public async Task<IActionResult> InsertPost(PostDto postDto)
         {
+            var post = _mapper.Map<Post>(postDto);
             await _postRepository.InsertPost(post);
             return Ok(post);
         }
