@@ -1,6 +1,8 @@
 using CleanAPI.Core.Interfaces;
 using CleanAPI.Infrastructure.Data;
+using CleanAPI.Infrastructure.Filters;
 using CleanAPI.Infrastructure.Repositories;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +31,11 @@ namespace CleanAPI.API
             services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            });
+            })
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    //options.SuppressModelStateInvalidFilter = true;
+                });
 
             services.AddSwaggerGen(c =>
             {
@@ -44,6 +50,15 @@ namespace CleanAPI.API
 
             //Resolve dependencies
             services.AddTransient<IPostRepository, PostRepository>();
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<ValidationFilter>();
+            })
+                .AddFluentValidation(options =>
+                {
+                    options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
