@@ -32,5 +32,25 @@ namespace CleanAPI.Infrastructure.Repositories
             _dbContext.Posts.Add(post);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<bool> UpdatePost(Post post)
+        {
+            var currentPost = await GetPost(post.PostId);
+            currentPost.Date = post.Date;
+            currentPost.Description = post.Description;
+            currentPost.Image = post.Image;
+
+            int rows = await _dbContext.SaveChangesAsync();
+            return rows > 0;
+        }
+
+        public async Task<bool> DeletePost(int id)
+        {
+            var currentPost = await GetPost(id);
+            _dbContext.Posts.Remove(currentPost);
+
+            int rows = await _dbContext.SaveChangesAsync();
+            return rows > 0;
+        }
     }
 }

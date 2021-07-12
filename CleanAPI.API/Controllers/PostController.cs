@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CleanAPI.API.Responses;
 using CleanAPI.Core.DTOs;
 using CleanAPI.Core.Entities;
 using CleanAPI.Core.Interfaces;
@@ -13,36 +14,58 @@ namespace CleanAPI.API.Controllers
     [ApiController]
     public class PostController : ControllerBase
     {
-        private readonly IPostRepository _postRepository;
+        private readonly IPostService _postService;
         private readonly IMapper _mapper;
-        public PostController(IPostRepository postRepository, IMapper mapper)
+        public PostController(IPostService postService, IMapper mapper)
         {
-            _postRepository = postRepository;
+            _postService = postService;
             _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetPosts()
         {
-            var posts = await _postRepository.GetPosts();
+            var posts = await _postService.GetPosts();
             var postsDto = _mapper.Map<IEnumerable<PostDto>>(posts);
-            return Ok(postsDto);
+            var response = new ApiResponse<IEnumerable<PostDto>>(postsDto);
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPost(int id)
         {
-            var post = await _postRepository.GetPost(id);
+            var post = await _postService.GetPost(id);
             var postDto = _mapper.Map<PostDto>(post);
-            return Ok(postDto);
+            var response = new ApiResponse<PostDto>(postDto);
+            return Ok(response);
         }
 
         [HttpPost]
         public async Task<IActionResult> InsertPost(PostDto postDto)
         {
             var post = _mapper.Map<Post>(postDto);
-            await _postRepository.InsertPost(post);
-            return Ok(post);
+            await _postService.InsertPost(post);
+            postDto = _mapper.Map<PostDto>(post);
+            var response = new ApiResponse<PostDto>(postDto);
+            return Ok(response);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdatePost(int id, PostDto postDto)
+        {
+            var post = _mapper.Map<Post>(postDto);
+            post.PostId = id;
+            var result = await _postService.UpdatePost(post);
+            var response = new ApiResponse<bool>(result);
+            return Ok(response);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            var result = await _postService.DeletePost(id);
+            var response = new ApiResponse<bool>(result);
+            return Ok(response);
         }
     }
 }

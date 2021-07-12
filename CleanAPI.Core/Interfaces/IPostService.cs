@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace CleanAPI.Core.Interfaces
 {
-    public interface IPostRepository
+    public interface IPostService
     {
         Task<IEnumerable<Post>> GetPosts();
         Task<Post> GetPost(int id);

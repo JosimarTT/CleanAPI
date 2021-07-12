@@ -1,4 +1,5 @@
 using CleanAPI.Core.Interfaces;
+using CleanAPI.Core.Services;
 using CleanAPI.Infrastructure.Data;
 using CleanAPI.Infrastructure.Filters;
 using CleanAPI.Infrastructure.Repositories;
@@ -49,7 +50,9 @@ namespace CleanAPI.API
             });
 
             //Resolve dependencies
+            services.AddTransient<IPostService, PostService>();
             services.AddTransient<IPostRepository, PostRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
             services.AddMvc(options =>
             {
