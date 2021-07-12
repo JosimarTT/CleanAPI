@@ -1,12 +1,7 @@
 ﻿using CleanAPI.Core.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanAPI.Infrastructure.Filters
 {
@@ -14,7 +9,7 @@ namespace CleanAPI.Infrastructure.Filters
     {
         public void OnException(ExceptionContext context)
         {
-            if (context.Exception.GetType()==typeof (BusinessException))
+            if (context.Exception.GetType() == typeof(BusinessException))
             {
                 var exception = (BusinessException)context.Exception;
                 var validation = new

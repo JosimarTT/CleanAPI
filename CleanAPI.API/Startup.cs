@@ -29,7 +29,7 @@ namespace CleanAPI.API
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddControllers(options=> 
+            services.AddControllers(options =>
             {
                 options.Filters.Add<GlobalExceptionFilter>();
             })

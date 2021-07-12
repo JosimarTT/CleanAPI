@@ -1,6 +1,7 @@
 ﻿using CleanAPI.Core.Entities;
 using CleanAPI.Core.Exceptions;
 using CleanAPI.Core.Interfaces;
+using CleanAPI.Core.QueryFilters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +29,14 @@ namespace CleanAPI.Core.Services
             return await _unitOfWork.PostRepository.GetById(id);
         }
 
-        public IEnumerable<Post> GetPosts()
+        public IEnumerable<Post> GetPosts(PostQueryFilter filters)
         {
-            return _unitOfWork.PostRepository.GetAll();
+            var posts = _unitOfWork.PostRepository.GetAll();
+            if (filters.UserId != null) posts = posts.Where(x => x.UserId == filters.UserId);
+            if (filters.Date > DateTime.MinValue) posts = posts.Where(x => x.Date == filters.Date);
+            if (!string.IsNullOrWhiteSpace(filters.Description)) posts = posts.Where(x => x.Description.ToLower().Contains(filters.Description.ToLower()));
+
+            return posts;
         }
 
         public async Task InsertPost(Post post)

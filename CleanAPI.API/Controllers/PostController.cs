@@ -3,6 +3,8 @@ using CleanAPI.API.Responses;
 using CleanAPI.Core.DTOs;
 using CleanAPI.Core.Entities;
 using CleanAPI.Core.Interfaces;
+using CleanAPI.Core.QueryFilters;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -22,9 +24,11 @@ namespace CleanAPI.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetPosts()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetPosts([FromQuery] PostQueryFilter filters)
         {
-            var posts = _postService.GetPosts();
+            var posts = _postService.GetPosts(filters);
             var postsDto = _mapper.Map<IEnumerable<PostDto>>(posts);
             var response = new ApiResponse<IEnumerable<PostDto>>(postsDto);
             return Ok(response);
