@@ -9,14 +9,14 @@ namespace CleanAPI.Infrastructure.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly CleanAPIContext _dbContext;
-        private readonly IBaseRepository<Post> _postRepository;
+        private readonly IPostRepository _postRepository;
         private readonly IBaseRepository<User> _userRepository;
         private readonly IBaseRepository<Comment> _commentRepository;
         public UnitOfWork(CleanAPIContext dbContext)
         {
             _dbContext = dbContext;
         }
-        public IBaseRepository<Post> PostRepository => _postRepository ?? new BaseRepository<Post>(_dbContext);
+        public IPostRepository PostRepository => _postRepository ?? new PostRepository(_dbContext);
 
         public IBaseRepository<User> UserRepository => _userRepository ?? new BaseRepository<User>(_dbContext);
 

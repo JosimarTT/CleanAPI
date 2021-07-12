@@ -3,6 +3,7 @@ using CleanAPI.Core.Interfaces;
 using CleanAPI.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CleanAPI.Infrastructure.Repositories
@@ -10,7 +11,7 @@ namespace CleanAPI.Infrastructure.Repositories
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
         private readonly CleanAPIContext _dbContext;
-        private readonly DbSet<T> _entity;
+        protected readonly DbSet<T> _entity;
         public BaseRepository(CleanAPIContext dbContext)
         {
             _dbContext = dbContext;
@@ -19,20 +20,18 @@ namespace CleanAPI.Infrastructure.Repositories
 
         public async Task Add(T entity)
         {
-            _entity.Add(entity);
-            await _dbContext.SaveChangesAsync();
+            await _entity.AddAsync(entity);
         }
 
         public async Task Delete(int id)
         {
             T entity = await GetById(id);
             _entity.Remove(entity);
-            await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public IEnumerable<T> GetAll()
         {
-            return await _entity.ToListAsync();
+            return _entity.AsEnumerable();
         }
 
         public async Task<T> GetById(int id)
@@ -40,10 +39,9 @@ namespace CleanAPI.Infrastructure.Repositories
             return await _entity.FindAsync(id);
         }
 
-        public async Task Update(T entity)
+        public void Update(T entity)
         {
             _entity.Update(entity);
-            await _dbContext.SaveChangesAsync();
         }
     }
 }
