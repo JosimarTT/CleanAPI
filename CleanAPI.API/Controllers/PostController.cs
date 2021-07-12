@@ -5,7 +5,6 @@ using CleanAPI.Core.Entities;
 using CleanAPI.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CleanAPI.API.Controllers
@@ -54,7 +53,7 @@ namespace CleanAPI.API.Controllers
         public async Task<IActionResult> UpdatePost(int id, PostDto postDto)
         {
             var post = _mapper.Map<Post>(postDto);
-            post.PostId = id;
+            post.Id = id;
             var result = await _postService.UpdatePost(post);
             var response = new ApiResponse<bool>(result);
             return Ok(response);

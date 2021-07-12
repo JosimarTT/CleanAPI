@@ -1,14 +1,10 @@
 ﻿using CleanAPI.Core.DTOs;
 using FluentValidation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanAPI.Infrastructure.Validators
 {
-    public class PostValidator:AbstractValidator<PostDto>
+    public class PostValidator : AbstractValidator<PostDto>
     {
         public PostValidator()
         {
