@@ -6,6 +6,7 @@ using CleanAPI.Core.Interfaces;
 using CleanAPI.Core.QueryFilters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -31,6 +32,17 @@ namespace CleanAPI.API.Controllers
             var posts = _postService.GetPosts(filters);
             var postsDto = _mapper.Map<IEnumerable<PostDto>>(posts);
             var response = new ApiResponse<IEnumerable<PostDto>>(postsDto);
+
+            var metaData = new
+            {
+                posts.TotalCount,
+                posts.PageSize,
+                posts.CurrentPage,
+                posts.TotalPages,
+                posts.HasNextPage,
+                posts.HasPreviousPage
+            };
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metaData));
             return Ok(response);
         }
 

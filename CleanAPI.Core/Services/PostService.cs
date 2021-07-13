@@ -1,9 +1,9 @@
-﻿using CleanAPI.Core.Entities;
+﻿using CleanAPI.Core.CustomEntities;
+using CleanAPI.Core.Entities;
 using CleanAPI.Core.Exceptions;
 using CleanAPI.Core.Interfaces;
 using CleanAPI.Core.QueryFilters;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,14 +29,19 @@ namespace CleanAPI.Core.Services
             return await _unitOfWork.PostRepository.GetById(id);
         }
 
-        public IEnumerable<Post> GetPosts(PostQueryFilter filters)
+        public PagedList<Post> GetPosts(PostQueryFilter filters)
         {
             var posts = _unitOfWork.PostRepository.GetAll();
-            if (filters.UserId != null) posts = posts.Where(x => x.UserId == filters.UserId);
-            if (filters.Date > DateTime.MinValue) posts = posts.Where(x => x.Date == filters.Date);
-            if (!string.IsNullOrWhiteSpace(filters.Description)) posts = posts.Where(x => x.Description.ToLower().Contains(filters.Description.ToLower()));
+            if (filters.UserId != null)
+                posts = posts.Where(x => x.UserId == filters.UserId);
+            if (filters.Date > DateTime.MinValue)
+                posts = posts.Where(x => x.Date.ToShortDateString() == filters.Date.ToShortDateString());
+            if (!string.IsNullOrWhiteSpace(filters.Description))
+                posts = posts.Where(x => x.Description.ToLower().Contains(filters.Description.ToLower()));
 
-            return posts;
+            var pagedPosts = PagedList<Post>.Create(posts, filters.PageNumber, filters.PageSize);
+
+            return pagedPosts;
         }
 
         public async Task InsertPost(Post post)
