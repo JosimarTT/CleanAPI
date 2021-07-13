@@ -6,6 +6,7 @@ using CleanAPI.Core.Entities;
 using CleanAPI.Core.Interfaces;
 using CleanAPI.Core.QueryFilters;
 using CleanAPI.Infrastructure.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace CleanAPI.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
