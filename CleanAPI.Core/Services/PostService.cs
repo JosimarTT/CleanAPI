@@ -3,6 +3,7 @@ using CleanAPI.Core.Entities;
 using CleanAPI.Core.Exceptions;
 using CleanAPI.Core.Interfaces;
 using CleanAPI.Core.QueryFilters;
+using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,10 +13,12 @@ namespace CleanAPI.Core.Services
     public class PostService : IPostService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly PaginationOptions _paginationOptions;
 
-        public PostService(IUnitOfWork unitOfWork)
+        public PostService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> options)
         {
             _unitOfWork = unitOfWork;
+            _paginationOptions = options.Value;
         }
 
         public async Task<bool> DeletePost(int id)
@@ -31,6 +34,9 @@ namespace CleanAPI.Core.Services
 
         public PagedList<Post> GetPosts(PostQueryFilter filters)
         {
+            filters.PageNumber = filters.PageNumber == 0 ? _paginationOptions.DefaultPageNumber : filters.PageNumber;
+            filters.PageSize = filters.PageSize == 0 ? _paginationOptions.DefaultPageSize : filters.PageSize;
+
             var posts = _unitOfWork.PostRepository.GetAll();
             if (filters.UserId != null)
                 posts = posts.Where(x => x.UserId == filters.UserId);

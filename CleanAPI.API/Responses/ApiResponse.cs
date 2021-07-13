@@ -1,4 +1,6 @@
-﻿namespace CleanAPI.API.Responses
+﻿using CleanAPI.Core.CustomEntities;
+
+namespace CleanAPI.API.Responses
 {
     public class ApiResponse<T>
     {
@@ -8,5 +10,7 @@
         }
 
         public T Data { get; set; }
+
+        public MetaData MetaData { get; set; }
     }
 }
