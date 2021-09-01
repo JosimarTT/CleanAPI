@@ -82,6 +82,7 @@ namespace CleanAPI.API
 
             //Resolve dependencies
             services.AddTransient<IPostService, PostService>();
+            services.AddTransient<ISecurityService, SecurityService>();
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddSingleton<IUriService>(provider =>

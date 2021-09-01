@@ -12,15 +12,15 @@ namespace CleanAPI.Infrastructure.Repositories
         private readonly IPostRepository _postRepository;
         private readonly IBaseRepository<User> _userRepository;
         private readonly IBaseRepository<Comment> _commentRepository;
+        private readonly ISecurityRepository _securityRepository;
         public UnitOfWork(CleanAPIContext dbContext)
         {
             _dbContext = dbContext;
         }
         public IPostRepository PostRepository => _postRepository ?? new PostRepository(_dbContext);
-
         public IBaseRepository<User> UserRepository => _userRepository ?? new BaseRepository<User>(_dbContext);
-
         public IBaseRepository<Comment> CommentRepository => _commentRepository ?? new BaseRepository<Comment>(_dbContext);
+        public ISecurityRepository SecurityRepository => _securityRepository ?? new SecurityRepository(_dbContext);
 
         public void Dispose()
         {
@@ -32,12 +32,12 @@ namespace CleanAPI.Infrastructure.Repositories
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            _dbContext.SaveChanges();
         }
 
-        public Task SavechangesAsync()
+        public async Task SavechangesAsync()
         {
-            throw new NotImplementedException();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

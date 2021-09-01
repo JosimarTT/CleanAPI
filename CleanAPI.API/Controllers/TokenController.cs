@@ -1,4 +1,5 @@
 ﻿using CleanAPI.Core.Entities;
+using CleanAPI.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -6,6 +7,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CleanAPI.API.Controllers
 {
@@ -14,27 +16,32 @@ namespace CleanAPI.API.Controllers
     public class TokenController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        public TokenController(IConfiguration configuration)
+        private readonly ISecurityService _securityService;
+        public TokenController(IConfiguration configuration, ISecurityService securityService)
         {
             _configuration = configuration;
+            _securityService = securityService;
         }
 
         [HttpPost]
-        public IActionResult Authentication(UserLogin login)
+        public async Task<IActionResult> Authentication(UserLogin login)
         {
-            if (IsValidUser(login))
+            var validation = await IsValidUser(login);
+            if (validation.Item1)
             {
-                return Ok(new { token = GenerateToken() });
+                var token = GenerateToken(validation.Item2);
+                return Ok(new { token });
             }
             return NotFound();
         }
 
-        private bool IsValidUser(UserLogin login)
+        private async Task<(bool, Security)> IsValidUser(UserLogin login)
         {
-            return true;
+            var user = await _securityService.GetLoginByCredentials(login);
+            return (user != null, user);
         }
 
-        private string GenerateToken()
+        private string GenerateToken(Security security)
         {
             //header
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Authentication:SecretKey"]));
@@ -43,9 +50,9 @@ namespace CleanAPI.API.Controllers
             //claims
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name,"Josimar Tantahuilca"),
-                new Claim(ClaimTypes.Email,"sagadeath@hotmail.com"),
-                new Claim(ClaimTypes.Role,"Administrador")
+                new Claim(ClaimTypes.Name,security.UserName),
+                new Claim("User",security.User),
+                new Claim(ClaimTypes.Role,security.Role.ToString())
             };
             //payload
             var payload = new JwtPayload
