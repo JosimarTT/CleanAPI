@@ -4,6 +4,7 @@ using CleanAPI.Core.Services;
 using CleanAPI.Infrastructure.Data;
 using CleanAPI.Infrastructure.Filters;
 using CleanAPI.Infrastructure.Interfaces;
+using CleanAPI.Infrastructure.Options;
 using CleanAPI.Infrastructure.Repositories;
 using CleanAPI.Infrastructure.Services;
 using FluentValidation.AspNetCore;
@@ -74,6 +75,7 @@ namespace CleanAPI.API
             });
 
             services.Configure<PaginationOptions>(Configuration.GetSection("Pagination"));
+            services.Configure<PasswordOptions>(Configuration.GetSection("PasswordOptions"));
             //DB Context
             services.AddDbContext<CleanAPIContext>(options =>
             {
@@ -83,6 +85,7 @@ namespace CleanAPI.API
             //Resolve dependencies
             services.AddTransient<IPostService, PostService>();
             services.AddTransient<ISecurityService, SecurityService>();
+            services.AddTransient<IPasswordService, PasswordService>();
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddSingleton<IUriService>(provider =>

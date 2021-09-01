@@ -1,7 +1,6 @@
 ﻿using CleanAPI.Core.Entities;
 using CleanAPI.Core.Interfaces;
 using CleanAPI.Infrastructure.Data;
-using System;
 using System.Threading.Tasks;
 
 namespace CleanAPI.Infrastructure.Repositories

@@ -11,7 +11,7 @@ namespace CleanAPI.Infrastructure.Repositories
         public SecurityRepository(CleanAPIContext dbContext) : base(dbContext) { }
         public async Task<Security> GetLoginByCredentials(UserLogin login)
         {
-            return await _entity.FirstOrDefaultAsync(x => x.User == login.User && x.Password == login.Password);
+            return await _entity.FirstOrDefaultAsync(x => x.User == login.User);
         }
     }
 }
