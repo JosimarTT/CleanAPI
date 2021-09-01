@@ -2,6 +2,7 @@ using CleanAPI.Core.CustomEntities;
 using CleanAPI.Core.Interfaces;
 using CleanAPI.Core.Services;
 using CleanAPI.Infrastructure.Data;
+using CleanAPI.Infrastructure.Extensions;
 using CleanAPI.Infrastructure.Filters;
 using CleanAPI.Infrastructure.Interfaces;
 using CleanAPI.Infrastructure.Options;
@@ -74,27 +75,10 @@ namespace CleanAPI.API
                 };
             });
 
-            services.Configure<PaginationOptions>(Configuration.GetSection("Pagination"));
-            services.Configure<PasswordOptions>(Configuration.GetSection("PasswordOptions"));
-            //DB Context
-            services.AddDbContext<CleanAPIContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("CleanAPI"));
-            });
-
-            //Resolve dependencies
-            services.AddTransient<IPostService, PostService>();
-            services.AddTransient<ISecurityService, SecurityService>();
-            services.AddTransient<IPasswordService, PasswordService>();
-            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddSingleton<IUriService>(provider =>
-            {
-                var accesor = provider.GetRequiredService<IHttpContextAccessor>();
-                var request = accesor.HttpContext.Request;
-                var absoluteUri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());
-                return new UriService(absoluteUri);
-            });
+            //extensions
+            services.AddDbContexts(Configuration);
+            services.AddOptions(Configuration);
+            services.AddServices();
 
             services.AddMvc(options =>
             {
