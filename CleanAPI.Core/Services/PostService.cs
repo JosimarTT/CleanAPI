@@ -24,6 +24,7 @@ namespace CleanAPI.Core.Services
         public async Task<bool> DeletePost(int id)
         {
             await _unitOfWork.PostRepository.Delete(id);
+            await _unitOfWork.SavechangesAsync();
             return true;
         }
 
@@ -71,7 +72,10 @@ namespace CleanAPI.Core.Services
 
         public async Task<bool> UpdatePost(Post post)
         {
-            _unitOfWork.PostRepository.Update(post);
+            Post editPost = await _unitOfWork.PostRepository.GetById(post.Id);
+            editPost.Description = post.Description;
+            editPost.Image = post.Image;
+            _unitOfWork.PostRepository.Update(editPost);
             await _unitOfWork.SavechangesAsync();
             return true;
         }
