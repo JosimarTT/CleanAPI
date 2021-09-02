@@ -32,8 +32,7 @@ namespace CleanAPI.Infrastructure.Extensions
 
         public static void AddServices(this IServiceCollection services)
         {
-            services.AddTransient<IPostService, PostService>();
-            services.AddTransient<ISecurityService, SecurityService>();
+            services.AddTransient<IUserService, UserService>();
             services.AddTransient<IPasswordService, PasswordService>();
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();

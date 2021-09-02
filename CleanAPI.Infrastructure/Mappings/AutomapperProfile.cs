@@ -8,8 +8,8 @@ namespace CleanAPI.Infrastructure.Mappings
     {
         public AutomapperProfile()
         {
-            CreateMap<Post, PostDto>().ReverseMap();
-            CreateMap<Security, SecurityDto>().ReverseMap();
+            CreateMap<User, UserLoginDto>().ReverseMap();
+            CreateMap<User, UserfilterDto>().ReverseMap();
         }
     }
 }

@@ -15,13 +15,13 @@ namespace CleanAPI.UnitTests.Tests
 {
     public class PostServiceTest
     {
-        private readonly PostService _postService;
+        private readonly UserService _postService;
         private readonly Mock<IUnitOfWork> _unitOfWorkMock = new Mock<IUnitOfWork>();
         private readonly Mock<IOptions<PaginationOptions>> _paginationOptionsMock = new Mock<IOptions<PaginationOptions>>();
 
         public PostServiceTest()
         {
-            _postService = new PostService(_unitOfWorkMock.Object, _paginationOptionsMock.Object);
+            _postService = new UserService(_unitOfWorkMock.Object, _paginationOptionsMock.Object);
 
         }
 

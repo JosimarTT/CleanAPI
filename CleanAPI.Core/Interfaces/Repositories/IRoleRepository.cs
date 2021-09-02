@@ -2,7 +2,7 @@
 
 namespace CleanAPI.Core.Interfaces.Repositories
 {
-    public interface IUserRepository : IBaseRepository<User>
+    public interface IRoleRepository : IBaseRepository<Role>
     {
     }
 }

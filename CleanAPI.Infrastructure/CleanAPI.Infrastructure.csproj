@@ -20,4 +20,8 @@
     <ProjectReference Include="..\CleanAPI.Core\CleanAPI.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Configurations\" />
+  </ItemGroup>
+
 </Project>
