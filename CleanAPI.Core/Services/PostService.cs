@@ -1,7 +1,8 @@
 ﻿using CleanAPI.Core.CustomEntities;
 using CleanAPI.Core.Entities;
 using CleanAPI.Core.Exceptions;
-using CleanAPI.Core.Interfaces;
+using CleanAPI.Core.Interfaces.Repositories;
+using CleanAPI.Core.Interfaces.Services;
 using CleanAPI.Core.QueryFilters;
 using Microsoft.Extensions.Options;
 using System;

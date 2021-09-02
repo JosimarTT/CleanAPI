@@ -1,5 +1,5 @@
 ﻿using CleanAPI.Core.Entities;
-using CleanAPI.Core.Interfaces;
+using CleanAPI.Core.Interfaces.Repositories;
 using CleanAPI.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

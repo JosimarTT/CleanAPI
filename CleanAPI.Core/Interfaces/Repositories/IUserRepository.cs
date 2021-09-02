@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CleanAPI.Core.Interfaces
+namespace CleanAPI.Core.Interfaces.Repositories
 {
     public interface IUserRepository
     {

@@ -3,7 +3,7 @@ using CleanAPI.API.Responses;
 using CleanAPI.Core.CustomEntities;
 using CleanAPI.Core.DTOs;
 using CleanAPI.Core.Entities;
-using CleanAPI.Core.Interfaces;
+using CleanAPI.Core.Interfaces.Services;
 using CleanAPI.Core.QueryFilters;
 using CleanAPI.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;

@@ -1,5 +1,6 @@
 ﻿using CleanAPI.Core.CustomEntities;
-using CleanAPI.Core.Interfaces;
+using CleanAPI.Core.Interfaces.Repositories;
+using CleanAPI.Core.Interfaces.Services;
 using CleanAPI.Core.Services;
 using CleanAPI.Infrastructure.Data;
 using CleanAPI.Infrastructure.Interfaces;

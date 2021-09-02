@@ -3,7 +3,7 @@ using CleanAPI.Core.Entities;
 using CleanAPI.Core.QueryFilters;
 using System.Threading.Tasks;
 
-namespace CleanAPI.Core.Interfaces
+namespace CleanAPI.Core.Interfaces.Services
 {
     public interface IPostService
     {

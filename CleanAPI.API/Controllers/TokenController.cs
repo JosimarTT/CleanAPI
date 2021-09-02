@@ -1,5 +1,5 @@
 ﻿using CleanAPI.Core.Entities;
-using CleanAPI.Core.Interfaces;
+using CleanAPI.Core.Interfaces.Services;
 using CleanAPI.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
