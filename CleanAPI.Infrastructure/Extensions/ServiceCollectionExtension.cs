@@ -29,7 +29,7 @@ namespace CleanAPI.Infrastructure.Extensions
             services.Configure<PasswordOptions>(configuration.GetSection("PasswordOptions"));
         }
 
-        public static void AddServices(this IServiceCollection services )
+        public static void AddServices(this IServiceCollection services)
         {
             services.AddTransient<IPostService, PostService>();
             services.AddTransient<ISecurityService, SecurityService>();
