@@ -2,9 +2,8 @@
 
 namespace CleanAPI.Core.Entities
 {
-    public class Role : AuditableEntity
+    public class Role : BaseEntity
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
     }
 }

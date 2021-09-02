@@ -9,50 +9,40 @@ using System.Threading.Tasks;
 
 namespace CleanAPI.Infrastructure.Repositories
 {
-    public class BaseRepository<T> : IBaseRepository<T>
+    public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
         private readonly CleanAPIContext _dbContext;
-        protected readonly DbSet<T> _entities;
+        protected readonly DbSet<T> _dbSet;
         public BaseRepository(CleanAPIContext dbContext)
         {
             _dbContext = dbContext;
-            _entities = dbContext.Set<T>();
+            _dbSet = dbContext.Set<T>();
         }
 
         public IEnumerable<T> GetAll()
         {
-            return _entities.AsEnumerable();
+            return _dbSet.AsEnumerable();
         }
 
-        public async Task<T> GetById(int id)
+        public async Task<T> GetById(Guid id)
         {
-            return await _entities.FindAsync(id);
+            return await _dbSet.FindAsync(id);
         }
 
         public async Task Add(T entity)
         {
-            await _entities.AddAsync(entity);
+            await _dbSet.AddAsync(entity);
         }
 
         public void Update(T entity)
         {
-            _entities.Update(entity);
+            _dbSet.Update(entity);
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(Guid id)
         {
             T entity = await GetById(id);
-            _entities.Remove(entity);
-        }
-
-        public Task<T> GetById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Delete(Guid id)
-        {
-            throw new NotImplementedException();
+            _dbSet.Remove(entity);
         }
     }
 }

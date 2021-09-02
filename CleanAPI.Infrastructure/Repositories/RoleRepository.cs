@@ -3,12 +3,14 @@ using CleanAPI.Core.Interfaces.Repositories;
 using CleanAPI.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CleanAPI.Infrastructure.Repositories
 {
-    public class UserRepository: BaseRepository<User> , IUserRepository
+    public class RoleRepository : BaseRepository<Role>, IRoleRepository
     {
-        public UserRepository(CleanAPIContext context) : base(context) { }
+        public RoleRepository(CleanAPIContext context) : base(context) { }
     }
 }

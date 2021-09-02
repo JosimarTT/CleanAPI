@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CleanAPI.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CleanAPI.Core.Interfaces.Repositories
 {
-    public interface IBaseRepository<T>
+    public interface IBaseRepository<T> where T:BaseEntity
     {
         IEnumerable<T> GetAll();
         Task<T> GetById(Guid id);

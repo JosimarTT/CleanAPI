@@ -14,12 +14,9 @@ namespace CleanAPI.Infrastructure.Repositories
         {
             _dbContext = dbContext;
         }
-        public IPostRepository PostRepository => _postRepository ?? new PostRepository(_dbContext);
         public IUserRepository UserRepository => _userRepository ?? new UserRepository(_dbContext);
 
         public IRoleRepository RoleRepository => _roleRepository ?? new RoleRepository(_dbContext);
-
-        IUserRepository IUnitOfWork.UserRepository => throw new System.NotImplementedException();
 
         public void Dispose()
         {
