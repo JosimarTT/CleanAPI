@@ -15,8 +15,8 @@ namespace CleanAPI.Infrastructure.Repositories
         protected readonly DbSet<T> _dbSet;
         public BaseRepository(CleanAPIContext dbContext)
         {
-            _dbContext = dbContext;
-            _dbSet = dbContext.Set<T>();
+            _dbContext = dbContext ?? throw new ArgumentException(nameof(dbContext));
+            _dbSet = _dbContext.Set<T>();
         }
 
         public IEnumerable<T> GetAll()
