@@ -33,7 +33,7 @@ namespace CleanAPI.Core.Services
             filter.PageSize = filter.PageSize == 0 ? _paginationOptions.DefaultPageSize : filter.PageSize;
 
             var users = _unitOfWork.UserRepository.GetAll();
-            if (filter.Id != Guid.NewGuid()) users = users.Where(x => x.Id == filter.Id);
+            if (filter.Id != Guid.Empty) users = users.Where(x => x.Id == filter.Id);
             if (!string.IsNullOrWhiteSpace(filter.UserName)) users = users.Where(x => x.UserName == filter.UserName);
 
             var paged = PagedList<User>.Create(users, filter.PageNumber, filter.PageSize);

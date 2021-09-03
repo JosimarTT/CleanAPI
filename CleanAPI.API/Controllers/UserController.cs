@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CleanAPI.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -32,8 +32,8 @@ namespace CleanAPI.API.Controllers
         public IActionResult Get([FromQuery] UserfilterDto filter)
         {
             var users = _userService.GetPaged(filter);
-            var usersDto = _mapper.Map<IEnumerable<UserDto>>(users);
-            var response = new ApiResponse<IEnumerable<UserDto>>(usersDto) { };
+            var usersDto = _mapper.Map<IEnumerable<UserfilterDto>>(users);
+            var response = new ApiResponse<IEnumerable<UserfilterDto>>(usersDto) { };
             return Ok(response);
         }
 
