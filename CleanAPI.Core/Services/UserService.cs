@@ -22,6 +22,11 @@ namespace CleanAPI.Core.Services
             _paginationOptions = options.Value;
         }
 
+        public async Task<User> Login(string userName)
+        {
+            return await _unitOfWork.UserRepository.Login(userName);
+        }
+
         public PagedList<User> GetPaged(UserfilterDto filter)
         {
             filter.PageNumber = filter.PageNumber == 0 ? _paginationOptions.DefaultPageNumber : filter.PageNumber;
