@@ -25,4 +25,8 @@
     <ProjectReference Include="..\CleanAPI.Core\CleanAPI.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mocks\" />
+  </ItemGroup>
+
 </Project>
