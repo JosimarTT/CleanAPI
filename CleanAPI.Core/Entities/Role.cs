@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CleanAPI.Core.Entities
+﻿namespace CleanAPI.Core.Entities
 {
     public class Role : BaseEntity
     {

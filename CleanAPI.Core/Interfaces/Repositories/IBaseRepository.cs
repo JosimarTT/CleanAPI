@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CleanAPI.Core.Interfaces.Repositories
 {
-    public interface IBaseRepository<T> where T:BaseEntity
+    public interface IBaseRepository<T> where T : BaseEntity
     {
         IEnumerable<T> GetAll();
         Task<T> GetById(Guid id);

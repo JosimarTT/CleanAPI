@@ -1,5 +1,4 @@
-﻿using CleanAPI.Core.Entities;
-using CleanAPI.Core.Interfaces.Repositories;
+﻿using CleanAPI.Core.Interfaces.Repositories;
 using CleanAPI.Infrastructure.Data;
 using System.Threading.Tasks;
 

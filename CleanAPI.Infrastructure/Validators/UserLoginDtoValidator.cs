@@ -1,10 +1,5 @@
 ﻿using CleanAPI.Core.DTOs;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanAPI.Infrastructure.Validators
 {
@@ -18,7 +13,7 @@ namespace CleanAPI.Infrastructure.Validators
 
             RuleFor(x => x.Password)
                     .NotNull()
-                    .WithMessage(x=>$"{x.Password}: Property cannot be null.");
+                    .WithMessage(x => $"{x.Password}: Property cannot be null.");
 
         }
     }

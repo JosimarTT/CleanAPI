@@ -2,7 +2,7 @@
 {
     public interface IPasswordService
     {
-        string Generate(string password);
+        string Hash(string password);
         bool Validate(string hash, string password);
     }
 }

@@ -5,11 +5,9 @@ using CleanAPI.Core.Entities;
 using CleanAPI.Core.Interfaces.Services;
 using CleanAPI.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CleanAPI.API.Controllers
@@ -53,7 +51,7 @@ namespace CleanAPI.API.Controllers
         public async Task<IActionResult> Insert(UserLoginDto userLoginDto)
         {
             var user = _mapper.Map<User>(userLoginDto);
-            user.Password = _passwordService.Generate(userLoginDto.Password);
+            user.Password = _passwordService.Hash(userLoginDto.Password);
             await _userService.Insert(user);
             userLoginDto = _mapper.Map<UserLoginDto>(user);
             var response = new ApiResponse<UserLoginDto>(userLoginDto);

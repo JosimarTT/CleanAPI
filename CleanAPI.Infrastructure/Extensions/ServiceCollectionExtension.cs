@@ -7,7 +7,6 @@ using CleanAPI.Infrastructure.Interfaces;
 using CleanAPI.Infrastructure.Options;
 using CleanAPI.Infrastructure.Repositories;
 using CleanAPI.Infrastructure.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

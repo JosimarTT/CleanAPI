@@ -1,14 +1,8 @@
 ﻿using CleanAPI.Core.CustomEntities;
-using CleanAPI.Core.Entities;
 using CleanAPI.Core.Interfaces.Repositories;
-using CleanAPI.Core.Interfaces.Services;
 using CleanAPI.Core.Services;
-using FluentAssertions;
 using Microsoft.Extensions.Options;
 using Moq;
-using System;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace CleanAPI.UnitTests.Tests
 {
@@ -41,7 +35,7 @@ namespace CleanAPI.UnitTests.Tests
         //    };
 
         //    _unitOfWorkMock.Setup(x => x.PostRepository.GetById(postId)).ReturnsAsync(newPost);
-            
+
         //    var post = await _postService.GetPost(postId);
 
         //    postId.Should().Be(post.Id);

@@ -28,8 +28,8 @@ namespace CleanAPI.Infrastructure.Data
             modelBuilder.Entity<Role>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
 
             modelBuilder.Entity<Role>().HasData(
-                new Role() { Id = Guid.NewGuid(), Name = "Admin" },
-                new Role() { Id = Guid.NewGuid(), Name = "Employee" }                );
+                new Role() { Id = new Guid("beb585d6-6c62-4063-b783-123516a8127a"), Name = "Admin" },
+                new Role() { Id = new Guid("9164cf6d-10c0-4b10-8797-8d70c771b371"), Name = "Employee" });
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

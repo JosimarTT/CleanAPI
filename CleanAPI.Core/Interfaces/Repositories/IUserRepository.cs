@@ -1,5 +1,4 @@
-﻿using CleanAPI.Core.DTOs;
-using CleanAPI.Core.Entities;
+﻿using CleanAPI.Core.Entities;
 using System.Threading.Tasks;
 
 namespace CleanAPI.Core.Interfaces.Repositories
