@@ -14,9 +14,7 @@ namespace CleanAPI.Infrastructure.Validators
         {
             RuleFor(x => x.UserName)
                     .NotNull()
-                    .WithMessage( x=>$"{x.UserName}: Property cannot be null.")
-                    .Length(10, 500)
-                    .WithMessage(x=>$"{x.UserName}: Length should be between 10 and 500");
+                    .WithMessage(x => $"{x.UserName}: Property cannot be null.");
 
             RuleFor(x => x.Password)
                     .NotNull()

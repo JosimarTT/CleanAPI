@@ -49,8 +49,9 @@ namespace CleanAPI.Core.Services
         public async Task Insert(User user)
         {
             var findUser = await _unitOfWork.UserRepository.GetById(user.Id);
-            if (user != null)
+            if (findUser != null)
                 throw new BusinessException("Username already taken");
+            user.RoleId = new Guid("9164cf6d-10c0-4b10-8797-8d70c771b371");
             await _unitOfWork.UserRepository.Add(user);
             await _unitOfWork.SavechangesAsync();
         }
