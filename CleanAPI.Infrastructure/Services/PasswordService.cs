@@ -14,7 +14,7 @@ namespace CleanAPI.Infrastructure.Services
         {
             _passwordOptions = passwordOptions.Value;
         }
-        public string Generate(string password)
+        public string Hash(string password)
         {
             using (var algorithm = new Rfc2898DeriveBytes(password, _passwordOptions.SaltSize, _passwordOptions.Iterations))
             {

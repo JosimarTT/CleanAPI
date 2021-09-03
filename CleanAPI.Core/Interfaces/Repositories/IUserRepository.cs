@@ -1,12 +1,10 @@
 ﻿using CleanAPI.Core.Entities;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CleanAPI.Core.Interfaces.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository : IBaseRepository<User>
     {
-        Task<User> GetUser(int id);
-        Task<IEnumerable<User>> GetUsers();
+        Task<User> Login(string userName);
     }
 }

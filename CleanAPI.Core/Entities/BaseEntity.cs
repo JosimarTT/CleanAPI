@@ -1,7 +1,9 @@
-﻿namespace CleanAPI.Core.Entities
+﻿using System;
+
+namespace CleanAPI.Core.Entities
 {
-    public abstract class BaseEntity
+    public class BaseEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

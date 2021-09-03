@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 #nullable disable
 
@@ -7,20 +6,14 @@ namespace CleanAPI.Core.Entities
 {
     public partial class User : BaseEntity
     {
-        public User()
-        {
-            Comments = new HashSet<Comment>();
-            Posts = new HashSet<Post>();
-        }
-
+        public string UserName { get; set; }
+        public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateTime Birthdate { get; set; }
         public string Telephone { get; set; }
-        public bool IsActive { get; set; }
-
-        public virtual ICollection<Comment> Comments { get; set; }
-        public virtual ICollection<Post> Posts { get; set; }
+        public Guid RoleId { get; set; }
+        public Role Role { get; set; }
     }
 }
